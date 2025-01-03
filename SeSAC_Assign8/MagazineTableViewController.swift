@@ -93,20 +93,31 @@ class MagazineTableViewController: UITableViewController {
         cell.dateLabel.textColor = .lightGray
         cell.dateLabel.textAlignment = .right
         
+        // DateFormatter
+        let magazineDate = row.date
+        let format = DateFormatter()
+        format.dateFormat = "yyMMdd"
+        
+        let viewFormat = DateFormatter()
+        viewFormat.dateFormat = "yy년 MM월 dd일"
+        let viewDate = format.date(from: magazineDate)
+        
+        
+        cell.dateLabel.text = viewFormat.string(from: viewDate!)
+        
+
+        
+        
+        print(cell.dateLabel.textColor!)
         return cell
     }
     
     // 셀 높이(default: 44)
+    // 셀 높이를 반응형으로 지정할 수 있는지 알아보기☠️
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 510
+        return 550
     }
     
-    /* 날짜 설정
-    func getDate() -> String {
-        let format = DateFormatter()
-        format.dateFormat = "yy년 MM월 dd일"
-        
-        return
-    }
-    */
+    
+
 }
