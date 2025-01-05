@@ -18,7 +18,6 @@ struct Travel {
     let ad: Bool?
 }
 
-// ad 타입 false로 통일된 상태 -> likeButton 완성 후 true로 복구
 struct TravelInfo {
     let travel: [Travel] = [
         Travel(title: "하나우마 베이",
@@ -55,7 +54,7 @@ struct TravelInfo {
                grade: nil,
                save: nil,
                like: nil,
-               ad: false/* true로 변경해야됨 */),
+               ad: true),
         Travel(title: "철도 박물관",
                description: "일본 철도의 역사를 둘러볼 수 있는 박물관",
                travel_image: "https://images.unsplash.com/photo-1562326303-31bb8d0f4873?q=80&w=3264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -83,7 +82,7 @@ struct TravelInfo {
                grade: nil,
                save: nil,
                like: nil,
-               ad: false/* true로 변경해야됨 */),
+               ad: true),
         Travel(title: "동문 재래 시장",
                description: "먹거리와 생활용품을 판매하는, 제주에서 가장 큰 시장",
                travel_image: "https://images.unsplash.com/photo-1501523460185-2aa5d2a0f981?q=80&w=3331&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -118,7 +117,7 @@ struct TravelInfo {
                grade: nil,
                save: nil,
                like: nil,
-               ad: false/* true로 변경해야됨 */),
+               ad: true),
         Travel(title: "영등포 캠퍼스",
                description: "Jack님과 함께하는,\n우당탕탕 iOS 개발 성장기!",
                travel_image: "https://images.unsplash.com/photo-1679285516851-4f0cb04a3893?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -157,80 +156,108 @@ class TravelTableViewController: UITableViewController {
     }
     // 셀 데이터 + 디자인
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TravelTableViewController", for: indexPath) as! TravelTableViewCell
-        
         // 자주 쓰는거 상수에 담기
         let row = resource[indexPath.row]
-        // travel_image
-        let image = row.travel_image
         
-        // KingFisher
-        // image: String? 예외처리
-        if let image {
-            let url = URL(string: image)
-            cell.travelImage.kf.setImage(with: url)
-        } else {
-            cell.travelImage.image = UIImage(systemName: "xmark")
-        }
-        
-        // likeButton
-        if let likeButton = row.like {
-            let heart = likeButton ? "heart.fill" : "heart"
-            let btn = UIImage(systemName: heart)
-            cell.likeButton.setImage(btn, for: .normal)
-        } else {
-            // like가 nil인 경우의 처리
-            let likeButtonIsNil = UIImage(systemName: "heart")
-            cell.likeButton.setImage(likeButtonIsNil, for: .normal)
-        }
-        
-        // cell마다 버튼을 구분짓기 위해 tag로 분류
-        cell.likeButton.tag = indexPath.row
-        cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
-        
-        // image 디자인
-        cell.travelImage.layer.cornerRadius = 10
-        
-        // title, subtitle, save 내용 cell에 적용 (indexPath.row)
-        cell.titleLabel.text = row.title
-        cell.subtitleLabel.text = row.description
-        
-        // save nil 예외처리
-        if let saveCount = row.save {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
+        if row.ad == false {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TravelTableViewController", for: indexPath) as! TravelTableViewCell
             
-            if let formattedSaveCount = numberFormatter.string(from: NSNumber(value: saveCount)) {
-                cell.saveLabel.text = "저장 \(formattedSaveCount)"
+            // travel_image
+            let image = row.travel_image
+            
+            // KingFisher
+            // image: String? 예외처리
+            if let image {
+                let url = URL(string: image)
+                cell.travelImage.kf.setImage(with: url)
             } else {
-                cell.saveLabel.text = "저장 \(saveCount)"
+                cell.travelImage.image = UIImage(systemName: "xmark")
             }
             
+            // likeButton
+            if let likeButton = row.like {
+                let heart = likeButton ? "heart.fill" : "heart"
+                let btn = UIImage(systemName: heart)
+                cell.likeButton.setImage(btn, for: .normal)
+            } else {
+                // like가 nil인 경우의 처리
+                let likeButtonIsNil = UIImage(systemName: "heart")
+                cell.likeButton.setImage(likeButtonIsNil, for: .normal)
+            }
+            
+            // cell마다 버튼을 구분짓기 위해 tag로 분류
+            cell.likeButton.tag = indexPath.row
+            cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+            
+            // image 디자인
+            cell.travelImage.layer.cornerRadius = 10
+            
+            // title, subtitle, save 내용 cell에 적용 (indexPath.row)
+            cell.titleLabel.text = row.title
+            cell.subtitleLabel.text = row.description
+            
+            // save nil 예외처리
+            if let saveCount = row.save {
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                
+                if let formattedSaveCount = numberFormatter.string(from: NSNumber(value: saveCount)) {
+                    cell.saveLabel.text = "저장 \(formattedSaveCount)"
+                } else {
+                    cell.saveLabel.text = "저장 \(saveCount)"
+                }
+                
+            } else {
+                cell.saveLabel.text = "No data"
+            }
+            
+            // ⚠️numberOfLines 적용안됨 이슈. (오토레이아웃 관련 문제로 추측)⚠️
+            // ⚠️문제가 발생하는 label들은 광고 화면이었음⚠️
+            cell.titleLabel.numberOfLines = 0
+            cell.subtitleLabel.numberOfLines = 0
+            
+            cell.saveLabel.numberOfLines = 0
+            
+            // Label
+            cell.titleLabel.font = .boldSystemFont(ofSize: 16)
+            cell.subtitleLabel.font = .systemFont(ofSize: 14)
+            cell.subtitleLabel.textColor = .gray
+            
+            // save
+            cell.saveLabel.font = .systemFont(ofSize: 13)
+            cell.saveLabel.textColor = .gray
+            
+            return cell
         } else {
-            cell.saveLabel.text = "No data"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "adCell", for: indexPath) as! adTableViewCell
+            
+            cell.adLabel.font = .systemFont(ofSize: 15)
+            cell .adMessage.font = .boldSystemFont(ofSize: 18)
+            cell.adMessage.text = row.title
+            cell.adMessage.numberOfLines = 0
+            cell.adMessage.textAlignment = .center
+            
+            let colors: [UIColor] = [.red, .green, .blue, .yellow, .purple, .lightGray]
+            
+            cell.adBackgroundView.backgroundColor = colors.randomElement()!
+            cell.adBackgroundView.layer.cornerRadius = 10
+            
+            cell.adLabel.layer.cornerRadius = 15
+            cell.adLabel.backgroundColor = .white
+            
+            return cell
         }
-        
-        // ⚠️numberOfLines 적용안됨 이슈. (오토레이아웃 관련 문제일거 같음)⚠️
-        // ⚠️문제가 발생하는 label들은 광고 화면이었음⚠️
-        cell.titleLabel.numberOfLines = 0
-        cell.subtitleLabel.numberOfLines = 0
-        
-        cell.saveLabel.numberOfLines = 0
-        
-        // Label
-        cell.titleLabel.font = .boldSystemFont(ofSize: 16)
-        cell.subtitleLabel.font = .systemFont(ofSize: 14)
-        cell.subtitleLabel.textColor = .gray
-        
-        // save
-        cell.saveLabel.font = .systemFont(ofSize: 13)
-        cell.saveLabel.textColor = .gray
-        
-        return cell
     }
     // 셀 높이
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        
+        let row = resource[indexPath.row]
+        
+        if row.ad == true {
+            return 100
+        } else {
+            return 200
+        }
         
     }
     
@@ -242,3 +269,75 @@ class TravelTableViewController: UITableViewController {
         tableView.reloadData()
     }
 }
+/*
+ let cell = tableView.dequeueReusableCell(withIdentifier: "TravelTableViewController", for: indexPath) as! TravelTableViewCell
+ 
+ // 자주 쓰는거 상수에 담기
+ let row = resource[indexPath.row]
+ // travel_image
+ let image = row.travel_image
+ 
+ // KingFisher
+ // image: String? 예외처리
+ if let image {
+     let url = URL(string: image)
+     cell.travelImage.kf.setImage(with: url)
+ } else {
+     cell.travelImage.image = UIImage(systemName: "xmark")
+ }
+ 
+ // likeButton
+ if let likeButton = row.like {
+     let heart = likeButton ? "heart.fill" : "heart"
+     let btn = UIImage(systemName: heart)
+     cell.likeButton.setImage(btn, for: .normal)
+ } else {
+     // like가 nil인 경우의 처리
+     let likeButtonIsNil = UIImage(systemName: "heart")
+     cell.likeButton.setImage(likeButtonIsNil, for: .normal)
+ }
+ 
+ // cell마다 버튼을 구분짓기 위해 tag로 분류
+ cell.likeButton.tag = indexPath.row
+ cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+ 
+ // image 디자인
+ cell.travelImage.layer.cornerRadius = 10
+ 
+ // title, subtitle, save 내용 cell에 적용 (indexPath.row)
+ cell.titleLabel.text = row.title
+ cell.subtitleLabel.text = row.description
+ 
+ // save nil 예외처리
+ if let saveCount = row.save {
+     let numberFormatter = NumberFormatter()
+     numberFormatter.numberStyle = .decimal
+     
+     if let formattedSaveCount = numberFormatter.string(from: NSNumber(value: saveCount)) {
+         cell.saveLabel.text = "저장 \(formattedSaveCount)"
+     } else {
+         cell.saveLabel.text = "저장 \(saveCount)"
+     }
+     
+ } else {
+     cell.saveLabel.text = "No data"
+ }
+ 
+ // ⚠️numberOfLines 적용안됨 이슈. (오토레이아웃 관련 문제로 추측)⚠️
+ // ⚠️문제가 발생하는 label들은 광고 화면이었음⚠️
+ cell.titleLabel.numberOfLines = 0
+ cell.subtitleLabel.numberOfLines = 0
+ 
+ cell.saveLabel.numberOfLines = 0
+ 
+ // Label
+ cell.titleLabel.font = .boldSystemFont(ofSize: 16)
+ cell.subtitleLabel.font = .systemFont(ofSize: 14)
+ cell.subtitleLabel.textColor = .gray
+ 
+ // save
+ cell.saveLabel.font = .systemFont(ofSize: 13)
+ cell.saveLabel.textColor = .gray
+ 
+ return cell
+ */
