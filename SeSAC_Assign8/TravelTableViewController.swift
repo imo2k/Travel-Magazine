@@ -191,19 +191,40 @@ class TravelTableViewController: UITableViewController {
         // image 디자인
         cell.travelImage.layer.cornerRadius = 10
         
-        // title, subtitle 내용 cell에 적용 (indexPath.row)
+        // title, subtitle, save 내용 cell에 적용 (indexPath.row)
         cell.titleLabel.text = row.title
         cell.subtitleLabel.text = row.description
+        
+        // save nil 예외처리
+        if let saveCount = row.save {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            
+            if let formattedSaveCount = numberFormatter.string(from: NSNumber(value: saveCount)) {
+                cell.saveLabel.text = "저장 \(formattedSaveCount)"
+            } else {
+                cell.saveLabel.text = "저장 \(saveCount)"
+            }
+            
+        } else {
+            cell.saveLabel.text = "No data"
+        }
         
         // ⚠️numberOfLines 적용안됨 이슈. (오토레이아웃 관련 문제일거 같음)⚠️
         // ⚠️문제가 발생하는 label들은 광고 화면이었음⚠️
         cell.titleLabel.numberOfLines = 0
         cell.subtitleLabel.numberOfLines = 0
         
+        cell.saveLabel.numberOfLines = 0
+        
         // Label
-        cell.titleLabel.font = .boldSystemFont(ofSize: 18)
-        cell.subtitleLabel.font = .systemFont(ofSize: 15)
+        cell.titleLabel.font = .boldSystemFont(ofSize: 16)
+        cell.subtitleLabel.font = .systemFont(ofSize: 14)
         cell.subtitleLabel.textColor = .gray
+        
+        // save
+        cell.saveLabel.font = .systemFont(ofSize: 13)
+        cell.saveLabel.textColor = .gray
         
         return cell
     }

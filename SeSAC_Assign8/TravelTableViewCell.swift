@@ -16,4 +16,6 @@ class TravelTableViewCell: UITableViewCell {
     @IBOutlet var travelImage: UIImageView!
     
     @IBOutlet var likeButton: UIButton!
+    
+    @IBOutlet var saveLabel: UILabel!
 }
