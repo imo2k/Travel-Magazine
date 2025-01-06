@@ -141,24 +141,23 @@ class TravelTableViewController: UITableViewController {
         titleLabel.textAlignment = .center
         titleLabel.font = .boldSystemFont(ofSize: 20)
         
+        // titleLabel.textAlignment 적용안됨 이슈 contentHorizontalAlignment 적용으로 해결
         returnButtonDesign.contentHorizontalAlignment = .center
         
         
     }
-
-    
-    
-    
     
     @IBAction func returnButtonTapped(_ sender: UIButton) {
         print(#function)
     }
+    
     // MARK: - Table view data source
     
     // 셀 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resource.count
     }
+    
     // 셀 데이터 + 디자인
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 자주 쓰는거 상수에 담기
@@ -218,6 +217,9 @@ class TravelTableViewController: UITableViewController {
             
             // ⚠️numberOfLines 적용안됨 이슈. (오토레이아웃 관련 문제로 추측)⚠️
             // ⚠️문제가 발생하는 label들은 광고 화면이었음⚠️
+            
+            // -> 해결 완료. (ad의 Bool 값에 따라 cell의 UI를 다를게 구성해줘서 해결)
+            
             cell.titleLabel.numberOfLines = 0
             cell.subtitleLabel.numberOfLines = 0
             
@@ -233,7 +235,9 @@ class TravelTableViewController: UITableViewController {
             cell.saveLabel.textColor = .gray
             
             return cell
+            
         } else {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "adCell", for: indexPath) as! adTableViewCell
             
             cell.adLabel.font = .systemFont(ofSize: 15)
@@ -253,6 +257,7 @@ class TravelTableViewController: UITableViewController {
             return cell
         }
     }
+    
     // 셀 높이
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -265,10 +270,14 @@ class TravelTableViewController: UITableViewController {
         }
         
     }
-    
+    // #selector -> @objc
     @objc @IBAction func likeButtonTapped(_ sender: UIButton) {
         print(#function, sender.tag)
         
+        /*
+         현재 scope에서는 indexPath.row가 존재하지 않기 때문에
+         tag를 사용해서 indexPath.row를 사용한 것과 동일 기능 적용
+        */
         resource[sender.tag].like?.toggle()
         
         tableView.reloadData()
@@ -276,75 +285,3 @@ class TravelTableViewController: UITableViewController {
         
     }
 }
-/*
- let cell = tableView.dequeueReusableCell(withIdentifier: "TravelTableViewController", for: indexPath) as! TravelTableViewCell
- 
- // 자주 쓰는거 상수에 담기
- let row = resource[indexPath.row]
- // travel_image
- let image = row.travel_image
- 
- // KingFisher
- // image: String? 예외처리
- if let image {
-     let url = URL(string: image)
-     cell.travelImage.kf.setImage(with: url)
- } else {
-     cell.travelImage.image = UIImage(systemName: "xmark")
- }
- 
- // likeButton
- if let likeButton = row.like {
-     let heart = likeButton ? "heart.fill" : "heart"
-     let btn = UIImage(systemName: heart)
-     cell.likeButton.setImage(btn, for: .normal)
- } else {
-     // like가 nil인 경우의 처리
-     let likeButtonIsNil = UIImage(systemName: "heart")
-     cell.likeButton.setImage(likeButtonIsNil, for: .normal)
- }
- 
- // cell마다 버튼을 구분짓기 위해 tag로 분류
- cell.likeButton.tag = indexPath.row
- cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
- 
- // image 디자인
- cell.travelImage.layer.cornerRadius = 10
- 
- // title, subtitle, save 내용 cell에 적용 (indexPath.row)
- cell.titleLabel.text = row.title
- cell.subtitleLabel.text = row.description
- 
- // save nil 예외처리
- if let saveCount = row.save {
-     let numberFormatter = NumberFormatter()
-     numberFormatter.numberStyle = .decimal
-     
-     if let formattedSaveCount = numberFormatter.string(from: NSNumber(value: saveCount)) {
-         cell.saveLabel.text = "저장 \(formattedSaveCount)"
-     } else {
-         cell.saveLabel.text = "저장 \(saveCount)"
-     }
-     
- } else {
-     cell.saveLabel.text = "No data"
- }
- 
- // ⚠️numberOfLines 적용안됨 이슈. (오토레이아웃 관련 문제로 추측)⚠️
- // ⚠️문제가 발생하는 label들은 광고 화면이었음⚠️
- cell.titleLabel.numberOfLines = 0
- cell.subtitleLabel.numberOfLines = 0
- 
- cell.saveLabel.numberOfLines = 0
- 
- // Label
- cell.titleLabel.font = .boldSystemFont(ofSize: 16)
- cell.subtitleLabel.font = .systemFont(ofSize: 14)
- cell.subtitleLabel.textColor = .gray
- 
- // save
- cell.saveLabel.font = .systemFont(ofSize: 13)
- cell.saveLabel.textColor = .gray
- 
- return cell
- */

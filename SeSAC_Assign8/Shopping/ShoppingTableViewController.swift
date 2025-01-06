@@ -104,6 +104,11 @@ class ShoppingTableViewController: UITableViewController {
      }
      Head와 Body를 구분지어주는 키워드 = in
      Parameter / Return Type 둘 다 없는 클로저도 가능
+     
+     1급 객체(급이 하나인 객체) 충족 조건
+     - 전달 인자로 전달 가능
+     - 변수, 데이터 구조 안에 담을 수 있다.
+     - 반환 값으로 사용 가능
      */
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "삭제") { (action, view, completion) in
