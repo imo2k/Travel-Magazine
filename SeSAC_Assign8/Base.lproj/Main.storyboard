@@ -487,6 +487,82 @@
             </objects>
             <point key="canvasLocation" x="1401" y="-385"/>
         </scene>
+        <!--City-->
+        <scene sceneID="z6r-NE-Wg0">
+            <objects>
+                <tableViewController id="PuJ-Ty-aOR" customClass="CityTableViewController" customModule="SeSAC_Assign8" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="PcC-dc-bsI">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="jpp-ae-G4c">
+                            <rect key="frame" x="0.0" y="0.0" width="440" height="199"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQj-D4-i5F">
+                                    <rect key="frame" x="128" y="4" width="184" height="20.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nnS-vW-uKy">
+                                    <rect key="frame" x="0.0" y="44" width="440" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Zd-HH-cFl">
+                                    <rect key="frame" x="38" y="82" width="365" height="34"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hBq-oX-uKh">
+                                    <rect key="frame" x="8" y="144" width="424" height="32"/>
+                                    <segments>
+                                        <segment title="모두"/>
+                                        <segment title="국내"/>
+                                        <segment title="해외"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="segmentedControllTapped:" destination="PuJ-Ty-aOR" eventType="valueChanged" id="arr-oN-vRq"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="hBq-oX-uKh" firstAttribute="leading" secondItem="jpp-ae-G4c" secondAttribute="leading" constant="8" id="1ki-hK-1UH"/>
+                                <constraint firstItem="MQj-D4-i5F" firstAttribute="top" secondItem="jpp-ae-G4c" secondAttribute="top" constant="4" id="Lzy-Nc-nGK"/>
+                                <constraint firstAttribute="trailing" secondItem="MQj-D4-i5F" secondAttribute="trailing" constant="128" id="bdk-1z-5Qt"/>
+                                <constraint firstAttribute="bottom" secondItem="hBq-oX-uKh" secondAttribute="bottom" constant="24" id="ePi-MS-Qmv"/>
+                                <constraint firstItem="MQj-D4-i5F" firstAttribute="centerX" secondItem="jpp-ae-G4c" secondAttribute="centerX" id="osh-OD-tLm"/>
+                                <constraint firstAttribute="trailing" secondItem="hBq-oX-uKh" secondAttribute="trailing" constant="8" id="rsL-FP-bhf"/>
+                                <constraint firstItem="MQj-D4-i5F" firstAttribute="leading" secondItem="jpp-ae-G4c" secondAttribute="leading" constant="128" id="t6i-dH-5xg"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CityTableViewController" rowHeight="158" id="zWf-aw-iXk" customClass="CityTableViewCell" customModule="SeSAC_Assign8" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="249" width="440" height="158"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zWf-aw-iXk" id="9vg-eo-kM0">
+                                    <rect key="frame" x="0.0" y="0.0" width="440" height="158"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="PuJ-Ty-aOR" id="a6E-nn-xrU"/>
+                            <outlet property="delegate" destination="PuJ-Ty-aOR" id="ED4-ec-WKq"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="City" image="flag" catalog="system" id="3DT-hJ-O9J"/>
+                    <connections>
+                        <outlet property="titleLabel" destination="MQj-D4-i5F" id="Ubl-re-V4S"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Irw-BV-DPu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2278.636363636364" y="-302.51046025104603"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="o0Y-VE-wTy">
             <objects>
@@ -503,6 +579,7 @@
                         <segue destination="uPr-HO-Dcr" kind="relationship" relationship="viewControllers" id="kuf-b5-OQh"/>
                         <segue destination="C4K-Kq-rp3" kind="relationship" relationship="viewControllers" id="s6j-Ca-V6B"/>
                         <segue destination="kA9-tY-TM4" kind="relationship" relationship="viewControllers" id="3gd-KE-tZL"/>
+                        <segue destination="PuJ-Ty-aOR" kind="relationship" relationship="viewControllers" id="98q-U7-X33"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xy4-p5-cqs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -514,6 +591,7 @@
         <image name="airplane" catalog="system" width="128" height="115"/>
         <image name="bag" catalog="system" width="128" height="128"/>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
+        <image name="flag" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="lessthan" catalog="system" width="128" height="108"/>
         <image name="magazine" catalog="system" width="110" height="128"/>
