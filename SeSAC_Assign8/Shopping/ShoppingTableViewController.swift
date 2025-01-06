@@ -55,40 +55,21 @@ class ShoppingTableViewController: UITableViewController {
     }
     // 셀 데이터 + 디자인
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingTableViewController") as! ShoppingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ShoppingTableViewCell.id) as! ShoppingTableViewCell
         
         let row = list[indexPath.row]
         
-        cell.backgroundColor = .systemGray5
-        cell.layer.cornerRadius = 10
+        cell.configureData(row: row)
         
-        cell.listLabel.font = .systemFont(ofSize: 14)
-        cell.listLabel.text = row.item
-        
-        // 구매 완료
-        let check = row.check ? "checkmark.square" : "checkmark.square.fill"
-        let checkBtn = UIImage(systemName: check)
-        
-        cell.checkButton.setImage(checkBtn, for: .normal)
         // 버튼 구분 = tag사용 / indexPath.row값 = tag값
         cell.checkButton.tag = indexPath.row
         
         cell.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
         
-        // 즐겨찾기
-        let favorite = row.star ? "star" : "star.fill"
-        let starBtn = UIImage(systemName: favorite)
-        
-        cell.starButton.setImage(starBtn, for: .normal)
-        
         // 버튼 구분 = tag사용 / indexPath.row값 = tag값
         cell.starButton.tag = indexPath.row
         
         cell.starButton.addTarget(self, action: #selector(starButtonTapped), for: .touchUpInside)
-        
-        // 버튼 디자인
-        cell.checkButton.tintColor = .black
-        cell.starButton.tintColor = .black
         
         return cell
         

@@ -164,19 +164,7 @@ class TravelTableViewController: UITableViewController {
         let row = resource[indexPath.row]
         
         if row.ad == false {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TravelTableViewController", for: indexPath) as! TravelTableViewCell
-            
-            // travel_image
-            let image = row.travel_image
-            
-            // KingFisher
-            // image: String? 예외처리
-            if let image {
-                let url = URL(string: image)
-                cell.travelImage.kf.setImage(with: url)
-            } else {
-                cell.travelImage.image = UIImage(systemName: "xmark")
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: TravelTableViewCell.id, for: indexPath) as! TravelTableViewCell
             
             // likeButton
             if let likeButton = row.like {
@@ -193,13 +181,7 @@ class TravelTableViewController: UITableViewController {
             cell.likeButton.tag = indexPath.row
             cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
             
-            // image 디자인
-            cell.travelImage.layer.cornerRadius = 10
-            
-            // title, subtitle, save 내용 cell에 적용 (indexPath.row)
-            cell.titleLabel.text = row.title
-            cell.subtitleLabel.text = row.description
-            
+            cell.configureDataFalse(row: row)
             
             // save nil 예외처리
             if let saveCount = row.save {
@@ -216,44 +198,14 @@ class TravelTableViewController: UITableViewController {
                 cell.saveLabel.text = "No data"
             }
             
-            // ⚠️numberOfLines 적용안됨 이슈. (오토레이아웃 관련 문제로 추측)⚠️
-            // ⚠️문제가 발생하는 label들은 광고 화면이었음⚠️
-            
-            // -> 해결 완료. (ad의 Bool 값에 따라 cell의 UI를 다를게 구성해줘서 해결)
-            
-            cell.titleLabel.numberOfLines = 0
-            cell.subtitleLabel.numberOfLines = 0
-            
-            cell.saveLabel.numberOfLines = 0
-            
-            // Label
-            cell.titleLabel.font = .boldSystemFont(ofSize: 16)
-            cell.subtitleLabel.font = .systemFont(ofSize: 14)
-            cell.subtitleLabel.textColor = .gray
-            
-            // save
-            cell.saveLabel.font = .systemFont(ofSize: 13)
-            cell.saveLabel.textColor = .gray
-            
             return cell
             
         } else {
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "adCell", for: indexPath) as! adTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: adTableViewCell.id, for: indexPath) as! adTableViewCell
             
-            cell.adLabel.font = .systemFont(ofSize: 15)
-            cell .adMessage.font = .boldSystemFont(ofSize: 18)
-            cell.adMessage.text = row.title
-            cell.adMessage.numberOfLines = 0
-            cell.adMessage.textAlignment = .center
+            cell.configureDataTrue(row: row)
             
-            let colors: [UIColor] = [.red, .green, .blue, .yellow, .purple, .lightGray]
-            
-            cell.adBackgroundView.backgroundColor = colors.randomElement()!
-            cell.adBackgroundView.layer.cornerRadius = 10
-            
-            cell.adLabel.layer.cornerRadius = 15
-            cell.adLabel.backgroundColor = .white
             
             return cell
         }

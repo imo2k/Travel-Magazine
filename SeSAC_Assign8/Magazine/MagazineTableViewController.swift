@@ -45,13 +45,8 @@ class MagazineTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        magazineTitle.text = "SeSAC TRAVEL"
-        magazineTitle.textAlignment = .center
-        magazineTitle.font = .boldSystemFont(ofSize: 20)
+        headerDesign(label: magazineTitle)
     }
-    
-    
-    
     // MARK: - Table view data source
     
     // 셀 개수
@@ -64,52 +59,12 @@ class MagazineTableViewController: UITableViewController {
     // 셀의 데이터 + 디자인
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MagazineTableViewController", for: indexPath) as! MagazineTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MagazineTableViewCell.id, for: indexPath) as! MagazineTableViewCell
         
         // 자주 쓰는거 상수에 담기
         let row = resource[indexPath.row]
-        // magazine photo_image
-        let image = row.photo_image
-        
-        // Kingfisher 활용
-        let url = URL(string: image)
-        cell.magazineImage.kf.setImage(with: url)
-        
-        // photo_image 디자인
-        cell.magazineImage.layer.cornerRadius = 10
-        
-        // title, subtitle 내용 cell에 적용 (indexPath.row)
-        cell.titleLabel.text = row.title
-        cell.subtitleLabel.text = row.subtitle
-        
-        // title numberOfLines
-        cell.titleLabel.numberOfLines = 0
-        
-        // resource.date 내용 cell에 적용 (indexPath.row)
-        cell.dateLabel.text = row.date
-        
-        // Label 디자인
-        cell.titleLabel.font = .boldSystemFont(ofSize: 30)
-        cell.subtitleLabel.font = .systemFont(ofSize: 18)
-        cell.subtitleLabel.textColor = .lightGray
-        cell.dateLabel.font = .systemFont(ofSize: 15)
-        cell.dateLabel.textColor = .lightGray
-        cell.dateLabel.textAlignment = .right
-        
-        // DateFormatter
-        let magazineDate = row.date
-        let format = DateFormatter()
-        format.dateFormat = "yyMMdd"
-        
-        let viewFormat = DateFormatter()
-        viewFormat.dateFormat = "yy년 MM월 dd일"
-        let viewDate = format.date(from: magazineDate)
-        
-        
-        cell.dateLabel.text = viewFormat.string(from: viewDate!)
-        
 
-        
+        cell.configureData(row: row)
         
         print(cell.dateLabel.textColor!)
         return cell
@@ -121,6 +76,10 @@ class MagazineTableViewController: UITableViewController {
         return 550
     }
     
-    
+    func headerDesign(label: UILabel) {
+        label.text = "SeSAC TRAVEL"
+        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 20)
+    }
 
 }

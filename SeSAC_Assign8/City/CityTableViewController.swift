@@ -71,7 +71,12 @@ class CityTableViewController: UITableViewController, UITextFieldDelegate {
         
         textFieldDesign.delegate = self
         textFieldDesign.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textFieldDesign.addTarget(self, action: #selector(textFieldReturnKeyTapped), for: .editingDidEndOnExit)
     }
+    @objc func textFieldReturnKeyTapped() {
+        view.endEditing(true)
+    }
+    
     @objc func textFieldDidChange(textField: UITextField) {
         segmentIndexFilter()
     }
