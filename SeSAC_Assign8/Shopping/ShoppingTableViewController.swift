@@ -39,13 +39,13 @@ class ShoppingTableViewController: UITableViewController {
         super.viewDidLoad()
 
         // Extension
-        
         let design = Design(label: titleLabel, btn: addButton, tf: shoppingTextField, view: topView)
         
         design.labelDesign(label: titleLabel)
         design.buttonDesign(btn: addButton)
         design.textFieldDesgin(tf: shoppingTextField)
         design.viewDesign(view: topView)
+        
     }
     // MARK: - Table view data source
 
@@ -96,7 +96,15 @@ class ShoppingTableViewController: UITableViewController {
     }
     
     // 스와이프 삭제
-    // handler 부분이 이해가 잘 안됩니다.. 찾아보니 클로저 개념
+    // handler 클로저 개념 <- Unnamed Function (익명함수)
+    /*🔥
+     클로저 표현식
+     { (Parameters) -> Return Type in   // <- Closure Head
+        실행 구문                         // <- Closure Body
+     }
+     Head와 Body를 구분지어주는 키워드 = in
+     Parameter / Return Type 둘 다 없는 클로저도 가능
+     */
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "삭제") { (action, view, completion) in
             self.list.remove(at: indexPath.row)
