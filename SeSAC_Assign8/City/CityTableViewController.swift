@@ -68,26 +68,32 @@ class CityTableViewController: UITableViewController {
     }
     
     @IBAction func segmentedControllTapped(_ sender: UISegmentedControl) {
+        print(#function)
+
         let segmentIndex = sender.selectedSegmentIndex
         
         
+        selectedCity = CityInfo().city
+        
         // 세그먼트 컨트롤에서 2개만 화면이 잘나오는 이슈 발생
         // -> 모두 탭을 찍고 다시 다른 탭을 선택하면 나오긴 하지만 국내 - 해외 (안나옴), 해외 - 국내 (안나옴)
+        /*
+         "모두" 화면일 때는 전체배열
+         ("국내" -> "해외" /  "해외" -> "국내") 는 이미 필터링된 배열을 사용하게 되는게 원인이였음
+         조건문 시작 전 배열을 초기화 시켜줌으로서 해결
+         */
         if segmentIndex == 1 { // 국내
             print("국내")
             selectedCity = selectedCity.filter { city in city.domestic_travel == true }
-            tableView.reloadData()
         } else if segmentIndex == 2 { // 해외
             print("해외")
             selectedCity = selectedCity.filter { city in city.domestic_travel == false }
-            tableView.reloadData()
-        } else { // 전체
+        } else if segmentIndex == 0 { // 전체
             print("전체")
             
             selectedCity = CityInfo().city
-            tableView.reloadData()
         }
-        
+        tableView.reloadData()
     }
     
     // MARK: - Table view data source
@@ -105,8 +111,6 @@ class CityTableViewController: UITableViewController {
         
         cell.configureData(row: row)
         
-        
-
         return cell
     }
     
