@@ -97,6 +97,7 @@ class ShoppingTableViewController: UITableViewController {
     
     // 스와이프 삭제
     // handler 클로저 개념 <- Unnamed Function (익명함수)
+    // UIContextualAction의 Parameters는 action, sourceView, completionHandler
     /*🔥
      클로저 표현식
      { (Parameters) -> Return Type in   // <- Closure Head
