@@ -36,7 +36,7 @@ struct CityInfo {
     ]
 }
 
-class CityTableViewController: UITableViewController {
+class CityTableViewController: UITableViewController, UITextFieldDelegate {
     
     // 😭 domestic_travel에 접근하기 위해서 개념을 살짝 정리를 해봤습니다 (혹시 틀렸다면 지도편달 부탁드립니다..ㅠㅠ)
     
@@ -54,6 +54,10 @@ class CityTableViewController: UITableViewController {
      
     @IBOutlet var titleLabel: UILabel!
     
+    @IBOutlet var textFieldDesign: UITextField!
+    
+    @IBOutlet var segmentedControl: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,13 +69,14 @@ class CityTableViewController: UITableViewController {
         let nib = UINib(nibName: "CityTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "CityTableViewCell")
         
+        textFieldDesign.delegate = self
+        textFieldDesign.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
-    
-    @IBAction func segmentedControllTapped(_ sender: UISegmentedControl) {
-        print(#function)
-
-        let segmentIndex = sender.selectedSegmentIndex
-        
+    @objc func textFieldDidChange(textField: UITextField) {
+        segmentIndexFilter()
+    }
+    func segmentIndexFilter() {
+        let segmentIndex = segmentedControl.selectedSegmentIndex
         
         selectedCity = CityInfo().city
         
@@ -90,10 +95,25 @@ class CityTableViewController: UITableViewController {
             selectedCity = selectedCity.filter { city in city.domestic_travel == false }
         } else if segmentIndex == 0 { // 전체
             print("전체")
-            
             selectedCity = CityInfo().city
         }
+        selectedCity = editingChangeSearch()
+        
         tableView.reloadData()
+    }
+    
+    // 검색
+    func editingChangeSearch() -> [City] {
+        guard let searchText = textFieldDesign.text, !searchText.isEmpty else {
+            return selectedCity
+        }
+        return selectedCity.filter { $0.city_english_name.contains(searchText) || $0.city_explain.contains(searchText) || $0.city_name.contains(searchText) }
+    }
+    
+    @IBAction func segmentedControllTapped(_ sender: UISegmentedControl) {
+        print(#function)
+        segmentIndexFilter()
+
     }
     
     // MARK: - Table view data source

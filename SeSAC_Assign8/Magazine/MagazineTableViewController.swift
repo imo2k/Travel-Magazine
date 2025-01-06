@@ -49,6 +49,9 @@ class MagazineTableViewController: UITableViewController {
         magazineTitle.textAlignment = .center
         magazineTitle.font = .boldSystemFont(ofSize: 20)
     }
+    
+    
+    
     // MARK: - Table view data source
     
     // 셀 개수
