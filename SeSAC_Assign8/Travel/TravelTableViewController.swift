@@ -200,6 +200,7 @@ class TravelTableViewController: UITableViewController {
             cell.titleLabel.text = row.title
             cell.subtitleLabel.text = row.description
             
+            
             // save nil 예외처리
             if let saveCount = row.save {
                 let numberFormatter = NumberFormatter()
