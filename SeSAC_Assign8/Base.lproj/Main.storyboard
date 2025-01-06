@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C4K-Kq-rp3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VhW-6l-NSa">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Magazine Table View Controller-->
+        <!--Magazine-->
         <scene sceneID="U3N-sp-3Sk">
             <objects>
                 <tableViewController id="uPr-HO-Dcr" customClass="MagazineTableViewController" customModule="SeSAC_Assign8" customModuleProvider="target" sceneMemberID="viewController">
@@ -103,15 +103,16 @@
                             <outlet property="delegate" destination="uPr-HO-Dcr" id="1yk-ug-oHC"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Magazine" selectedImage="airplane" catalog="system" id="wVh-YC-8PC"/>
                     <connections>
                         <outlet property="magazineTitle" destination="QvR-Ka-kkU" id="YEd-5m-62F"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZSY-pk-7Aa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1744" y="-156"/>
+            <point key="canvasLocation" x="-817.55725190839689" y="-156.33802816901408"/>
         </scene>
-        <!--Travel Table View Controller-->
+        <!--Travel-->
         <scene sceneID="JfF-iq-8VU">
             <objects>
                 <tableViewController id="C4K-Kq-rp3" customClass="TravelTableViewController" customModule="SeSAC_Assign8" customModuleProvider="target" sceneMemberID="viewController">
@@ -133,9 +134,11 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6r-kA-BjN">
-                                    <rect key="frame" x="8" y="20" width="100" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6r-kA-BjN">
+                                    <rect key="frame" x="8" y="20" width="100" height="31"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="x6v-V7-NNe"/>
+                                    </constraints>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" title="인기 도시">
@@ -145,16 +148,23 @@
                                         <action selector="returnButtonTapped:" destination="C4K-Kq-rp3" eventType="touchUpInside" id="PGz-Xk-5Nv"/>
                                     </connections>
                                 </button>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lessthan" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZUt-sm-5un">
-                                    <rect key="frame" x="8" y="20" width="20" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lessthan" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZUt-sm-5un">
+                                    <rect key="frame" x="7.9999999999999991" y="23.666666666666664" width="15.666666666666664" height="24.000000000000007"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="31" id="Poi-n2-TsT"/>
+                                    </constraints>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
+                                <constraint firstItem="D6r-kA-BjN" firstAttribute="top" secondItem="4F6-kV-hTp" secondAttribute="top" constant="20" id="1Mg-64-IEr"/>
+                                <constraint firstItem="ZUt-sm-5un" firstAttribute="top" secondItem="4F6-kV-hTp" secondAttribute="top" constant="20" id="Avc-QK-hot"/>
+                                <constraint firstItem="D6r-kA-BjN" firstAttribute="centerY" secondItem="4F6-kV-hTp" secondAttribute="centerY" id="e2t-8O-ZMk"/>
                                 <constraint firstItem="N3m-HZ-doK" firstAttribute="centerX" secondItem="4F6-kV-hTp" secondAttribute="centerX" id="ktZ-tz-flz"/>
                                 <constraint firstItem="N3m-HZ-doK" firstAttribute="centerY" secondItem="4F6-kV-hTp" secondAttribute="centerY" id="lHq-XJ-Wl5"/>
+                                <constraint firstItem="ZUt-sm-5un" firstAttribute="leading" secondItem="4F6-kV-hTp" secondAttribute="leading" constant="8" id="tlb-Eq-7kC"/>
+                                <constraint firstItem="D6r-kA-BjN" firstAttribute="leading" secondItem="4F6-kV-hTp" secondAttribute="leading" constant="8" id="zJI-rh-acV"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -316,7 +326,7 @@
                                     <outlet property="adBackgroundView" destination="nhw-Gc-pW2" id="LEI-b5-8Fx"/>
                                     <outlet property="adLabel" destination="Ks9-Ox-bwK" id="cv0-el-UR3"/>
                                     <outlet property="adMessage" destination="etY-Bf-TLo" id="VLs-kx-eJK"/>
-                                    <outlet property="adView" destination="B6G-Yr-84F" id="y28-IV-1Ul"/>
+                                    <outlet property="adView" destination="B6G-Yr-84F" id="V5D-xc-mze"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -325,6 +335,7 @@
                             <outlet property="delegate" destination="C4K-Kq-rp3" id="PAH-Kh-wbk"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Travel" selectedImage="magazine.fill" catalog="system" id="AcA-gG-jSK"/>
                     <connections>
                         <outlet property="returnButtonDesign" destination="D6r-kA-BjN" id="PLT-df-I1Q"/>
                         <outlet property="titleLabel" destination="N3m-HZ-doK" id="8Qe-Si-vXu"/>
@@ -332,9 +343,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZT-1P-sxu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1016.030534351145" y="-171.12676056338029"/>
+            <point key="canvasLocation" x="-89.312977099236633" y="-171.12676056338029"/>
         </scene>
-        <!--Shopping Table View Controller-->
+        <!--Shop-->
         <scene sceneID="52u-vd-Wcl">
             <objects>
                 <tableViewController id="kA9-tY-TM4" customClass="ShoppingTableViewController" customModule="SeSAC_Assign8" customModuleProvider="target" sceneMemberID="viewController">
@@ -342,6 +353,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="zrV-mJ-ETM">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="119"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -454,6 +466,7 @@
                             <outlet property="delegate" destination="kA9-tY-TM4" id="sac-Up-HZW"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Shop" selectedImage="bag.fill" catalog="system" id="hx3-W4-naE"/>
                     <connections>
                         <outlet property="addButton" destination="hmY-fu-a7T" id="e7k-WC-1vd"/>
                         <outlet property="shoppingTextField" destination="xic-e0-2NA" id="A1U-ZF-MjC"/>
@@ -463,13 +476,35 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUR-mg-5f5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-280" y="-156"/>
+            <point key="canvasLocation" x="646.56488549618314" y="-156.33802816901408"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="o0Y-VE-wTy">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="VhW-6l-NSa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NIn-ek-jIQ">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="C4K-Kq-rp3" kind="relationship" relationship="viewControllers" id="s6j-Ca-V6B"/>
+                        <segue destination="uPr-HO-Dcr" kind="relationship" relationship="viewControllers" id="kuf-b5-OQh"/>
+                        <segue destination="kA9-tY-TM4" kind="relationship" relationship="viewControllers" id="3gd-KE-tZL"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xy4-p5-cqs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1744.2748091603053" y="-164.08450704225353"/>
         </scene>
     </scenes>
     <resources>
+        <image name="airplane" catalog="system" width="128" height="115"/>
+        <image name="bag.fill" catalog="system" width="128" height="128"/>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="lessthan" catalog="system" width="128" height="108"/>
+        <image name="magazine.fill" catalog="system" width="110" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">

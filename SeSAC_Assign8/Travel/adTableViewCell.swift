@@ -12,7 +12,9 @@ class adTableViewCell: UITableViewCell {
     @IBOutlet var adLabel: UILabel!
     
     @IBOutlet var adMessage: UILabel!
-
-    @IBOutlet var adView: UIView!
+    
     @IBOutlet var adBackgroundView: UIView!
+    
+    
+    @IBOutlet var adView: UIView!
 }

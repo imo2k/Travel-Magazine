@@ -38,33 +38,21 @@ class ShoppingTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.text = "쇼핑"
-        titleLabel.font = .boldSystemFont(ofSize: 20)
-        titleLabel.textAlignment = .center
+        // Extension
         
-        topView.layer.cornerRadius = 10
-        topView.backgroundColor = .systemGray5
+        let design = Design(label: titleLabel, btn: addButton, tf: shoppingTextField, view: topView)
         
-        shoppingTextField.placeholder = "무엇을 구매하실 건가요?"
-        shoppingTextField.backgroundColor = .systemGray5
-        shoppingTextField.borderStyle = .none
-        
-        addButton.backgroundColor = .systemGray4
-        addButton.layer.cornerRadius = 10
-        
+        design.labelDesign(label: titleLabel)
+        design.buttonDesign(btn: addButton)
+        design.textFieldDesgin(tf: shoppingTextField)
+        design.viewDesign(view: topView)
     }
     // MARK: - Table view data source
-    
-    
-    
+
     // 셀 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
     }
-    /*
-     체크박스 - 구매 완료
-     별 - 즐겨찾기
-     */
     // 셀 데이터 + 디자인
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingTableViewController") as! ShoppingTableViewCell
@@ -103,6 +91,8 @@ class ShoppingTableViewController: UITableViewController {
         cell.starButton.tintColor = .black
         
         return cell
+        
+        
     }
     
     // 스와이프 삭제
@@ -130,8 +120,7 @@ class ShoppingTableViewController: UITableViewController {
         list[sender.tag].star.toggle()
         tableView.reloadData()
     }
-    
-    
+        
     @IBAction func addButtonTapped(_ sender: UIButton) {
         let addItem = shoppingTextField.text
         
@@ -144,8 +133,8 @@ class ShoppingTableViewController: UITableViewController {
         } else {
             print("nil")
         }
-                
         
+        view.endEditing(true)
+  
     }
-    
 }

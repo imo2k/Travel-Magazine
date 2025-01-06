@@ -142,8 +142,13 @@ class TravelTableViewController: UITableViewController {
         titleLabel.font = .boldSystemFont(ofSize: 20)
         
         returnButtonDesign.contentHorizontalAlignment = .center
+        
+        
     }
 
+    
+    
+    
     
     @IBAction func returnButtonTapped(_ sender: UIButton) {
         print(#function)
@@ -267,6 +272,8 @@ class TravelTableViewController: UITableViewController {
         resource[sender.tag].like?.toggle()
         
         tableView.reloadData()
+        
+        
     }
 }
 /*
