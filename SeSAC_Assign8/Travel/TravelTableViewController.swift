@@ -158,10 +158,64 @@ class TravelTableViewController: UITableViewController {
         return resource.count
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 1트) didDeselectRowAt을 2개 선언해서 사용하는 방식 -> 이미 선언되었다고 안됨
+        // 2트) 조건문으로 경우 나누기 -> 성공
+        if resource[indexPath.row].ad == false {
+            tour()
+            print("관광지")
+        } else if resource[indexPath.row].ad == true {
+            ad()
+            print("광고")
+        }
+        
+        print(#function)
+        
+        func tour() {
+            // 1. 스토리보드 특정
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            
+            // 2. 전환할 VC가져오기 : TourViewController
+            // 이 경우는 Main.storyboard 내에서 작동하는 것이기 때문에 self 사용가능
+            let vc = sb.instantiateViewController(withIdentifier: "TourViewController") as! TourViewController
+            
+            // ⚠️tour VC가 갖고 있는 프로퍼티에 데이터 추가⚠️
+            vc.tourTitle = resource[indexPath.row].title
+            vc.tourSubtitle = resource[indexPath.row].description
+            vc.tourUrlImage = resource[indexPath.row].travel_image
+
+            
+            // 3. 화면 전환 방식 선택
+            navigationController?.pushViewController(vc, animated: true)
+            
+            tableView.reloadRows(at: [indexPath], with: .fade)
+        }
+        func ad() {
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            
+            let vc = sb.instantiateViewController(withIdentifier: "AdViewController") as! AdViewController
+            
+            vc.adText = resource[indexPath.row].title
+            
+            let nav = UINavigationController(rootViewController: vc)
+            // Full Screen / Present
+            nav.modalPresentationStyle = .fullScreen
+            
+            present(nav, animated: true)
+            
+            tableView.reloadRows(at: [indexPath], with: .fade)
+        }
+
+    }
+    
     // 셀 데이터 + 디자인
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 자주 쓰는거 상수에 담기
         let row = resource[indexPath.row]
+        
+//        resource[indexPath.row].travel_image
+//        
+//        TravelInfo().travel[indexPath.row].travel_image
         
         if row.ad == false {
             let cell = tableView.dequeueReusableCell(withIdentifier: TravelTableViewCell.id, for: indexPath) as! TravelTableViewCell
